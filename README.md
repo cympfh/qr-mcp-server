@@ -2,70 +2,41 @@
 
 QRコードを生成するためのMCP（Model Context Protocol）サーバーですわ。こちらのサーバーを使えば、Claude DesktopなどのMCP対応クライアントから、簡単にQRコードを生成していただけますわよ！
 
-## ✨ 特徴
-
-わたくしのサーバーには、以下のような機能がございますの：
-
-- 📱 **多様な出力形式**: PNG、SVG、Base64エンコード画像、ASCIIアート
-- 🎨 **柔軟なカスタマイズ**: QRコードのサイズや余白を自由に調整可能
-- 💾 **ファイル保存**: PNG・SVG形式で直接ファイルに保存
-- 🔒 **安全な上書き制御**: 既存ファイルの保護機能付き
-- 🚀 **FastMCP**: 高速で使いやすいFastMCPフレームワークを採用
+![](resource/screenshot.png)
 
 ## 📦 インストール
 
-### 前提条件
+### Claude Codeでのインストール（推奨）
 
-Python 3.13以上が必要ですわ。uvパッケージマネージャーを使用して管理いたしますので、まずはこちらをインストールしてくださいませ。
-
-```bash
-# uvのインストール（まだの場合）
-curl -LsSf https://astral.sh/uv/install.sh | sh
-```
-
-### セットアップ
-
-リポジトリをクローンして、依存関係をインストールいたしましょう。
+Claude Codeをお使いの場合は、以下のコマンド一つでインストール完了ですわ：
 
 ```bash
-git clone <repository-url>
-cd qr-mcp-server
-uv sync
+claude mcp add --scope user qr-mcp-server uvx git+https://github.com/cympfh/qr-mcp-server
 ```
 
-## 🔧 Claude Desktopでの設定
+### Claude Desktopでの設定
 
 Claude Desktopの設定ファイルに、こちらのサーバーを登録していただく必要がございますわ。
 
-### macOSの場合
-
-`~/Library/Application Support/Claude/claude_desktop_config.json` を編集してくださいませ：
+- macOS:
+    - `~/Library/Application Support/Claude/claude_desktop_config.json`
+- Windows:
+    - `%APPDATA%\Claude\claude_desktop_config.json`
+- Linux:
+    - `~/.config/Claude/claude_desktop_config.json`
 
 ```json
 {
   "mcpServers": {
     "qr-generator": {
-      "command": "uv",
+      "command": "uvx",
       "args": [
-        "--directory",
-        "/path/to/qr-mcp-server",
-        "run",
-        "main.py"
+        "git+https://github.com/cympfh/qr-mcp-server"
       ]
     }
   }
 }
 ```
-
-### Windowsの場合
-
-`%APPDATA%\Claude\claude_desktop_config.json` を編集してくださいませ。
-
-### Linuxの場合
-
-`~/.config/Claude/claude_desktop_config.json` を編集してくださいませ。
-
-**注意**: `/path/to/qr-mcp-server` の部分は、実際にクローンしたディレクトリのフルパスに置き換えてくださいね。
 
 設定を保存したら、Claude Desktopを再起動していただけますでしょうか。
 
@@ -148,16 +119,6 @@ QRコードをASCIIアートとして生成いたします。ターミナルで�
 - `data` (string, 必須): QRコードに埋め込むデータ
 - `border` (integer, 任意): QRコードの余白サイズ（デフォルト: 2）
 
-## 🧪 動作確認
-
-MCP Inspectorを使って、サーバーの動作確認ができますわ。
-
-```bash
-npx @modelcontextprotocol/inspector uv run main.py
-```
-
-ブラウザが開きますので、そちらでツールの動作を確認していただけますわ。
-
 ## 📚 技術仕様
 
 - **言語**: Python 3.13+
@@ -186,11 +147,3 @@ npx @modelcontextprotocol/inspector uv run main.py
 ## 📄 ライセンス
 
 MITライセンスの下で公開しておりますわ。
-
-## 🤝 貢献
-
-バグ報告や機能リクエストは、GitHubのIssuesでお願いいたしますわ。プルリクエストも大歓迎ですわよ！
-
----
-
-何かご不明な点がございましたら、お気軽にお尋ねくださいませ。素敵なQRコード生成をお楽しみくださいね！
