@@ -1,0 +1,13 @@
+[project]
+name = "qr-mcp-server"
+version = "0.1.0"
+description = "QR code generator MCP server"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "qrcode[pil]>=8.2",
+    "fastmcp>=0.3.0",
+]
+
+[project.scripts]
+qr-mcp-server = "server:main"
